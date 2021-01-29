@@ -1,0 +1,19 @@
+version: '2.2'
+services: 
+    db :
+        image: postgres:alpine
+        restart: always
+        volumes: 
+            - /Users/techmaster/Desktop/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - /Users/techmaster/Desktop/data:/var/lib/postgresql/data
+        environment: 
+            POSTGRES_PASSWORD : postgres
+    
+    web :
+        image: nodejs-app:v1
+        depends_on: 
+            - db
+        ports: 
+            - "8181:8080"
+        restart: always
+        
